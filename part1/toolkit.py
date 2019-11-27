@@ -212,15 +212,12 @@ def basic_removal(edges=None, C=None):
         if starter_counter[i] > 0:
             for j in range(0, course_counter[i]):
                 E_final.append(E[i][j])
-    P_final = []
+    P_final = [0]
     x = 0
     for i in range(0, C):
         if starter_counter[i] > 0:
             x += 1
-        if P_final != []:
-            P_final.append(P_final[-1] + starter_counter[i])
-        else:
-            P_final.append(a_matrix[z][z])
+        P_final.append(P_final[-1] + starter_counter[i])
 
 
 
@@ -230,7 +227,7 @@ def basic_removal(edges=None, C=None):
     return E_final, P_final
 
 def advanced_removal(scheduled=None, K=None, S=None, C=None):
-    P_final = []
+    P_final = [0]
     E_final = []
     edges = []
     a_matrix = [[0 for x in range(0, C)] for y in range(0, C)]
@@ -251,10 +248,7 @@ def advanced_removal(scheduled=None, K=None, S=None, C=None):
     #print('Total number of conflicts: ' + str(y))
     j = 0
     for z in range(0,C):
-        if P_final != []:
-            P_final.append(P_final[-1] + a_matrix[z][z])
-        else:
-            P_final.append(a_matrix[z][z])
+        P_final.append(P_final[-1] + a_matrix[z][z])
         for b in range(0,C):
             if z != b:
                 if a_matrix[z][b] > 0:
@@ -267,3 +261,16 @@ def advanced_removal(scheduled=None, K=None, S=None, C=None):
     # print(P_final)
     # print(E_final)
     return E_final, P_final
+
+
+def network_vis(Edges=None, courses_per=None, students=None, classes=None):
+    G = nx.Graph()
+    G.add_edges_from(Edges)
+    fig, ax = plt.subplots(1, figsize=(10, 10))
+    pos = nx.spring_layout(G,k=0.25,iterations=25)
+    # the histogram of the data
+    nx.draw(G, with_labels=True, pos=pos )
+    ax.set_xlabel('Course')
+    ax.set_ylabel('Frequency')
+    ax.set_title(' Distribution for C: %d, S: %d, K: %d' % (classes, students, courses_per), fontsize=20 )
+    fig.savefig('graph.png')

@@ -12,8 +12,9 @@ CONFLICTS = True
 BASIC = False
 ADVANCED = True
 TIME_REMOVAL = False
+GRAPH_VIS = True
 
-def main(plot=PLOT, dist_timed=DIST_TIMED, trials=TRIALS, conflicts=CONFLICTS, basic=BASIC, time_removal=TIME_REMOVAL, advanced=ADVANCED):
+def main(plot=PLOT, dist_timed=DIST_TIMED, trials=TRIALS, conflicts=CONFLICTS, basic=BASIC, time_removal=TIME_REMOVAL, advanced=ADVANCED, graph_vis=GRAPH_VIS):
     args = tk.get_input()
     fig, ax = plt.subplots(1,3, figsize=(20, 10))
     ax[0].set_xlabel('C'), ax[1].set_xlabel('S'), ax[2].set_xlabel('K')
@@ -107,9 +108,11 @@ def main(plot=PLOT, dist_timed=DIST_TIMED, trials=TRIALS, conflicts=CONFLICTS, b
         E, P = tk.basic_removal(edges=edges, C=args.C)
     if advanced:
         E, P = tk.advanced_removal(scheduled=scheduled, C=args.C, K=args.K, S=args.S)
-
+    if graph_vis:
+        tk.network_vis(edges, courses_per=args.K, students=args.S, classes=args.C)
     print(E)
     print(P)
+    print(edges)
 
 
 
