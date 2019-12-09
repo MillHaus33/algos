@@ -12,7 +12,7 @@ import math
 
 
 class Node:
-    def __init__(self, course, adj_start, degree_start=None, degree=None, deleted=None, nref_degree_list=None, pref_degree_list=None, color=-1):
+    def __init__(self, course, adj_start, degree_start=None, degree=None, deleted=None, nref_degree_list=None, pref_degree_list=None, color=-1, degree_when_deleted=None):
         self.course = course
         self.adj_start = adj_start
         self.degree = degree
@@ -21,6 +21,7 @@ class Node:
         self.nref_degree_list = nref_degree_list
         self.pref_degree_list = pref_degree_list
         self.color = color
+        self.degree_when_deleted = degree_when_deleted
         
 # Create your dictionary class 
 class my_dictionary(dict): 
