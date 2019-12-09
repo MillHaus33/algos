@@ -110,9 +110,10 @@ def main(plot=PLOT, dist_timed=DIST_TIMED, trials=TRIALS, conflicts=CONFLICTS, b
         E, P = tk.advanced_removal(scheduled=scheduled, C=args.C, K=args.K, S=args.S)
     if graph_vis:
         tk.network_vis(edges, courses_per=args.K, students=args.S, classes=args.C)
-    print(E)
-    print(P)
-    print(edges)
+    with open(r'..\data\K_' + str(args.K) + '_C_' + str(args.C) + '_S_' + str(args.S) + '.txt', 'w+') as f:
+        f.write(str(E) + '\n')
+        f.write(str(P) + '\n')
+        f.write(str(edges))
 
 
 
